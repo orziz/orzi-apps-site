@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Free OKLCH Color Converter, WCAG 2.1 Contrast Checker &amp; Tailwind v4 @theme Generator | Orzi Apps</title>
+  <meta name="description" content="Convert Hex and RGB to perceptual OKLCH colors, check WCAG 2.1 AA/AAA text contrast ratios, and export Tailwind CSS v4 @theme or W3C DTCG JSON tokens locally.">
+  <link rel="canonical" href="https://apps.orzi.me/tools/oklch-contrast/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free OKLCH Converter, WCAG 2.1 Contrast Audit &amp; Tailwind v4 @theme Generator">
+  <meta property="og:description" content="Convert Hex to OKLCH, verify WCAG AA/AAA contrast ratios, and build exportable Tailwind v4 @theme palettes locally in your browser.">
+  <meta property="og:url" content="https://apps.orzi.me/tools/oklch-contrast/">
+  <meta property="og:image" content="https://apps.orzi.me/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free OKLCH &amp; WCAG Contrast Checker + Tailwind v4 @theme Generator">
+  <meta name="twitter:description" content="100% local Hex/OKLCH converter, WCAG 2.1 AA/AAA contrast matrix, and Tailwind v4 @theme exporter.">
+  <meta name="twitter:image" content="https://apps.orzi.me/og-card.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "OKLCH & WCAG Contrast Checker + Tailwind v4 Theme Generator",
+    "url": "https://apps.orzi.me/tools/oklch-contrast/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Orzi Apps", "url": "https://apps.orzi.me/" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link visually-hidden">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../../" class="brand">
+        <span class="brand-mark" aria-hidden="true">OA</span>
+        <span>Orzi Apps</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../../specquill/">SpecQuill</a></li>
+          <li><a href="../css-to-tailwind/">CSS → Tailwind</a></li>
+          <li><a href="./" aria-current="page">OKLCH &amp; WCAG</a></li>
+          <li><a href="../../terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container tool-main">
+    <section class="tool-hero">
+      <p class="eyebrow">Free Local Accessibility &amp; Design Token Tool</p>
+      <h1>OKLCH Color Converter, WCAG 2.1 Contrast Checker &amp; Tailwind v4 <code>@theme</code></h1>
+      <p class="lead">Check text contrast ratios against WCAG 2.1 AA/AAA rules, convert Hex/RGB colors into exact CSS <code>oklch()</code> values, and build an instant Tailwind v4 <code>@theme</code> or W3C Design Tokens JSON palette.</p>
+    </section>
+
+    <section class="tool-workspace" aria-label="OKLCH and WCAG contrast workbench">
+      <div class="tool-grid">
+        <div class="tool-panel">
+          <div class="color-inputs-row">
+            <div class="color-field">
+              <label for="fg-text" class="field-label">Text (Foreground)</label>
+              <div class="picker-pair">
+                <input id="fg-picker" type="color" value="#0f172a" aria-label="Foreground color picker">
+                <input id="fg-text" type="text" class="text-input mono" value="#0f172a" spellcheck="false">
+              </div>
+              <p id="fg-oklch" class="mono small-muted">oklch(20.8% 0.0398 265.8)</p>
+            </div>
+
+            <div class="color-field">
+              <label for="bg-text" class="field-label">Background</label>
+              <div class="picker-pair">
+                <input id="bg-picker" type="color" value="#ffffff" aria-label="Background color picker">
+                <input id="bg-text" type="text" class="text-input mono" value="#ffffff" spellcheck="false">
+              </div>
+              <p id="bg-oklch" class="mono small-muted">oklch(100.0% 0 0)</p>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button id="btn-swap" type="button" class="btn small secondary">⇄ Swap Colors</button>
+            <button id="btn-add-fg" type="button" class="btn small secondary">+ Add Text to Palette</button>
+            <button id="btn-add-bg" type="button" class="btn small secondary">+ Add Background to Palette</button>
+          </div>
+
+          <div id="contrast-preview-box" class="contrast-preview-box">
+            <p class="contrast-sample-heading">Readable UI Typography — 24px Bold</p>
+            <p class="contrast-sample-body">Body text should meet at least 4.5:1 for WCAG AA and 7.0:1 for WCAG AAA.</p>
+          </div>
+
+          <div class="wcag-cards">
+            <div class="wcag-card">
+              <span class="small-muted">Contrast Ratio</span>
+              <strong id="ratio-value" class="ratio-big">17.85:1</strong>
+            </div>
+            <div class="wcag-card">
+              <span class="small-muted">Normal Text (≥ 4.5:1)</span>
+              <strong id="badge-aa-normal" class="status-pill pass">✓ Pass AA</strong>
+            </div>
+            <div class="wcag-card">
+              <span class="small-muted">Large Text (≥ 3.0:1)</span>
+              <strong id="badge-aa-large" class="status-pill pass">✓ Pass AA</strong>
+            </div>
+            <div class="wcag-card">
+              <span class="small-muted">Enhanced (≥ 7.0:1)</span>
+              <strong id="badge-aaa-normal" class="status-pill pass">✓ Pass AAA</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-panel">
+          <div class="panel-head-row">
+            <label for="palette-format" class="field-label">Palette Token Export</label>
+            <select id="palette-format" class="mini-select">
+              <option value="tailwind">Tailwind CSS v4 @theme</option>
+              <option value="css">CSS :root Custom Properties</option>
+              <option value="dtcg">W3C Design Tokens JSON</option>
+            </select>
+          </div>
+
+          <ul id="palette-chips" class="chip-list" aria-label="Current palette colors"></ul>
+
+          <div class="output-block">
+            <div class="output-bar">
+              <span class="mono small-muted">Generated tokens</span>
+              <button id="btn-copy-theme" type="button" class="btn small primary">Copy Tokens</button>
+            </div>
+            <pre id="out-theme" class="code-output" tabindex="0"><code></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="promo-callout" aria-label="SpecQuill browser extension">
+      <div>
+        <p class="eyebrow">Audit Entire Live Websites in 1 Click</p>
+        <h2>Extract every color, OKLCH token &amp; WCAG contrast matrix from any live webpage</h2>
+        <p class="small-muted"><strong>SpecQuill</strong> scans any active Chrome tab locally into deduplicated Hex + OKLCH palettes, automated WCAG 2.1 contrast reports, Tailwind v4 <code>@theme</code>, Figma Variables JSON, and React JSX components.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="../../specquill/">Explore SpecQuill Extension</a>
+        <a class="btn secondary" href="https://www.creem.io/product/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">Early Bird Pro ($12 One-Time)</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps · Free developer tools</p>
+      <p><a href="../../">All Apps</a> · <a href="../css-to-tailwind/">CSS → Tailwind Tool</a> · <a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+  <div id="tool-status" class="status-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

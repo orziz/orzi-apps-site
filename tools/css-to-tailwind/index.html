@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Free CSS to Tailwind CSS v4 &amp; React JSX Converter | Orzi Apps</title>
+  <meta name="description" content="Convert raw CSS rules into clean, zero-bloat Tailwind CSS v4 utility classes and React JSX instantaneously in your browser. 100% local, free, zero ads.">
+  <link rel="canonical" href="https://apps.orzi.me/tools/css-to-tailwind/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free CSS to Tailwind CSS v4 &amp; React JSX Converter">
+  <meta property="og:description" content="Paste CSS, get clean Tailwind CSS v4 utility classes and React JSX with browser defaults stripped automatically. 100% local.">
+  <meta property="og:url" content="https://apps.orzi.me/tools/css-to-tailwind/">
+  <meta property="og:image" content="https://apps.orzi.me/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free CSS to Tailwind CSS v4 &amp; React JSX Converter">
+  <meta name="twitter:description" content="Convert CSS to clean Tailwind v4 classes &amp; React JSX locally. Built by Orzi Apps.">
+  <meta name="twitter:image" content="https://apps.orzi.me/og-card.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CSS to Tailwind CSS v4 Converter",
+    "url": "https://apps.orzi.me/tools/css-to-tailwind/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Orzi Apps", "url": "https://apps.orzi.me/" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link visually-hidden">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../../" class="brand">
+        <span class="brand-mark" aria-hidden="true">OA</span>
+        <span>Orzi Apps</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../../specquill/">SpecQuill</a></li>
+          <li><a href="./" aria-current="page">CSS → Tailwind</a></li>
+          <li><a href="../oklch-contrast/">OKLCH &amp; WCAG</a></li>
+          <li><a href="../../terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container tool-main">
+    <section class="tool-hero">
+      <p class="eyebrow">Free Local Developer Tool · Zero Ads · Zero Sign-Up</p>
+      <h1>CSS to Tailwind CSS v4 &amp; React JSX Converter</h1>
+      <p class="lead">Paste any CSS block below to strip redundant defaults and compile deterministic Tailwind CSS v4 utility classes plus clean JSX markup—100% locally in your browser.</p>
+    </section>
+
+    <section class="tool-workspace" aria-label="CSS to Tailwind converter">
+      <div class="preset-bar" role="group" aria-label="Load example CSS">
+        <span class="small-muted">Examples:</span>
+        <button type="button" class="btn small secondary" data-preset="card">SaaS Card</button>
+        <button type="button" class="btn small secondary" data-preset="button">Primary CTA Button</button>
+        <button type="button" class="btn small secondary" data-preset="badge">Status Pill</button>
+      </div>
+
+      <div class="tool-grid">
+        <div class="tool-panel">
+          <label for="css-input" class="field-label">Raw CSS Input</label>
+          <p id="css-input-hint" class="small-muted">Supports full CSS selectors or raw property declarations. Trivial browser defaults are automatically stripped.</p>
+          <textarea id="css-input" class="code-input" rows="13" spellcheck="false" aria-describedby="css-input-hint"></textarea>
+        </div>
+
+        <div class="tool-panel">
+          <div class="panel-head-row">
+            <label for="tag-select" class="field-label">Tailwind v4 Output</label>
+            <div class="inline-controls">
+              <label for="tag-select" class="visually-hidden">HTML Tag</label>
+              <select id="tag-select" class="mini-select">
+                <option value="div">&lt;div&gt;</option>
+                <option value="article">&lt;article&gt;</option>
+                <option value="button">&lt;button&gt;</option>
+                <option value="section">&lt;section&gt;</option>
+                <option value="span">&lt;span&gt;</option>
+              </select>
+              <label class="checkbox-label">
+                <input id="jsx-toggle" type="checkbox" checked>
+                <span>React JSX</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="output-block">
+            <div class="output-bar">
+              <span class="mono small-muted">Utility classes</span>
+              <button id="btn-copy-classes" type="button" class="btn small primary">Copy Classes</button>
+            </div>
+            <pre id="out-classes" class="code-output" tabindex="0"><code></code></pre>
+          </div>
+
+          <div class="output-block">
+            <div class="output-bar">
+              <span class="mono small-muted">Component markup</span>
+              <button id="btn-copy-snippet" type="button" class="btn small secondary">Copy Markup</button>
+            </div>
+            <pre id="out-snippet" class="code-output" tabindex="0"><code></code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-strip">
+        <span class="small-muted">Live rendered preview:</span>
+        <div class="preview-stage">
+          <div id="live-preview">Preview element</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="promo-callout" aria-label="SpecQuill browser extension">
+      <div>
+        <p class="eyebrow">Skip Manual Copy-Paste</p>
+        <h2>Want to grab Tailwind v4, React JSX &amp; AI prompts directly from any live webpage?</h2>
+        <p class="small-muted"><strong>SpecQuill</strong> runs the exact same zero-bloat style engine inside your Chrome Side Panel—hover any component, inspect WCAG contrast and Alt-key redlines, or scan an entire page into Tailwind v4 <code>@theme</code> and <code>.cursor/rules</code> in one click.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="../../specquill/">Explore SpecQuill Extension</a>
+        <a class="btn secondary" href="https://www.creem.io/product/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">Early Bird Pro ($12 One-Time)</a>
+      </div>
+    </aside>
+
+    <section class="section">
+      <h2>How Our Zero-Bloat Tailwind v4 Compiler Works</h2>
+      <div class="faq-list">
+        <article class="faq-item">
+          <h3>Why are browser defaults stripped automatically?</h3>
+          <p>Copying computed styles from DevTools typically dumps hundreds of lines like <code>position: static</code>, <code>opacity: 1</code>, or flex properties on non-flex containers. Our engine filters non-semantic defaults and collapses 4-side padding/margin shorthands into concise utilities like <code>py-4 px-6</code>.</p>
+        </article>
+        <article class="faq-item">
+          <h3>Does it support exact custom colors and pixel values?</h3>
+          <p>Yes. Standard Tailwind palette tokens (such as <code>bg-slate-900</code> or <code>bg-blue-600</code>) map directly to built-in classes, while bespoke brand hex values and non-4px dimensions cleanly emit Tailwind v4 arbitrary utilities like <code>bg-[#1a1f36]</code> and <code>text-[15px]</code>.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps · Free developer tools</p>
+      <p><a href="../../">All Apps</a> · <a href="../oklch-contrast/">OKLCH &amp; WCAG Tool</a> · <a href="../../privacy.html">Privacy</a> · <a href="../../terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+  <div id="tool-status" class="status-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
