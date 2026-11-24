@@ -61,10 +61,11 @@
             Skip blurry screenshots and 200-line DevTools style dumps. Hover any component, audit WCAG contrast and spacing redlines, and export clean HTML/CSS, Tailwind v4 utility classes, React JSX, OKLCH design tokens, or structured coding-agent specs locally in your browser.
           </p>
           <div class="cta-row">
-            <a class="btn primary" href="#pricing">Get Lifetime Pro ($12 Early Bird)</a>
-            <a class="btn secondary" href="../tools/css-to-tailwind/">Try Free Online Demo</a>
+            <a class="btn primary" href="downloads/specquill-v1.0.1.zip" download>Download Extension v1.0.1 (Free)</a>
+            <a class="btn secondary" href="https://www.creem.io/payment/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">Get Lifetime Pro ($12 Early Bird)</a>
+            <a class="btn secondary" href="../tools/css-to-tailwind/">Try Online Demo</a>
           </div>
-          <p class="fine-print">Free forever for hover inspection, redlines, clean HTML/CSS &amp; CSS variables · 5 free Pro exports/day · 14-day refund policy.</p>
+          <p class="fine-print">Free forever for hover inspection, redlines, clean HTML/CSS &amp; CSS variables · 5 free Pro exports/day · Works on Chrome, Edge &amp; Brave (Chrome Web Store review in progress) · 14-day refund policy.</p>
         </div>
 
         <div class="code-card" aria-label="Example SpecQuill output">
@@ -89,6 +90,26 @@ export function PricingCard() {
   );
 }
 &lt;/component_spec&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="section">
+      <div class="container">
+        <h2>See SpecQuill in Action</h2>
+        <div class="screenshot-grid">
+          <figure class="shot-card">
+            <img src="img/screenshot-1-inspector.png" alt="SpecQuill live webpage UI inspector showing spacing redlines, box model, and WCAG AAA contrast badge" width="1280" height="800" loading="lazy">
+            <figcaption><strong>Live Hover Inspector &amp; Redlines:</strong> Hover any element for box dimensions, Alt-key pixel distances, and instant WCAG AA/AAA contrast badges.</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="img/screenshot-2-tailwind-ai.png" alt="SpecQuill side panel exporting zero-bloat Tailwind CSS v4, React JSX, and structured AI coding prompts" width="1280" height="800" loading="lazy">
+            <figcaption><strong>Tailwind v4, React JSX &amp; AI Prompts:</strong> Export clean utility classes and token-budgeted component specs ready for Cursor or Claude.</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <img src="img/screenshot-3-tokens.png" alt="SpecQuill full-page OKLCH color palette, typography, and W3C DTCG design token exporter" width="1280" height="800" loading="lazy">
+            <figcaption><strong>Full-Page OKLCH &amp; Design Tokens:</strong> Audit every color, font, and SVG into Tailwind v4 <code>@theme</code>, Figma JSON, or W3C DTCG tokens.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -141,7 +162,7 @@ export function PricingCard() {
               <li>Unlimited CSS <code>:root</code> custom properties export</li>
               <li>5 free Pro exports every day</li>
             </ul>
-            <a id="install" class="btn secondary full" href="#faq">Chrome Web Store (Launching Soon)</a>
+            <a id="install" class="btn secondary full" href="downloads/specquill-v1.0.1.zip" download>Download v1.0.1 ZIP (Install in 15s)</a>
           </article>
 
           <article class="price-card featured">
@@ -156,10 +177,18 @@ export function PricingCard() {
               <li>Auto-generated <code>.cursor/rules</code> &amp; <code>AGENTS.md</code></li>
               <li>Unlimited typed React TSX SVG icon exports (up to 3 devices)</li>
             </ul>
-            <a class="btn primary full" href="https://www.creem.io/product/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">
+            <a class="btn primary full" href="https://www.creem.io/payment/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">
               Buy Lifetime Pro License ($12)
             </a>
           </article>
+        </div>
+        <div class="install-box">
+          <h3>Quick Install (While Chrome Web Store Review Completes)</h3>
+          <ol>
+            <li>Download <a href="downloads/specquill-v1.0.1.zip" download><code>specquill-v1.0.1.zip</code></a> (60 KB, zero external dependencies) and unzip it.</li>
+            <li>Open <code>chrome://extensions</code> (or <code>edge://extensions</code> / <code>brave://extensions</code>) and enable <strong>Developer mode</strong>.</li>
+            <li>Click <strong>Load unpacked</strong>, select the unzipped folder, and press <kbd>Alt+Shift+S</kbd> on any page.</li>
+          </ol>
         </div>
       </div>
     </section>
