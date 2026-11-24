@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>SpecQuill — UI Inspector, Design Tokens &amp; Clean Code Export | Orzi Apps</title>
+  <meta name="description" content="Local Chrome extension for frontend developers and designers. Inspect live webpage UI, audit WCAG contrast, and export zero-bloat CSS, utility classes, React JSX, OKLCH design tokens, and AI coding specs.">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a href="#main" class="skip-link visually-hidden">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../" class="brand">
+        <span class="brand-mark" aria-hidden="true">SQ</span>
+        <span>SpecQuill <small style="font-weight:500;opacity:.7;">by Orzi Apps</small></span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../">All Apps</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="../privacy.html">Privacy</a></li>
+          <li><a href="../terms.html">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Chrome Extension · 100% Local · One-Time License</p>
+          <h1>Inspect Live Webpage UI. Export Zero-Bloat Code &amp; Design Tokens.</h1>
+          <p class="lead">
+            Skip blurry screenshots and 200-line DevTools style dumps. Hover any component, audit WCAG contrast and spacing redlines, and export clean HTML/CSS, Tailwind v4 utility classes, React JSX, OKLCH design tokens, or structured coding-agent specs locally in your browser.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="#pricing">Get Lifetime Pro ($19)</a>
+            <a class="btn secondary" href="#features">Explore Features</a>
+          </div>
+          <p class="fine-print">Free forever for hover inspection, redlines, clean HTML/CSS &amp; CSS variables · 5 free Pro exports/day · 14-day refund policy.</p>
+        </div>
+
+        <div class="code-card" aria-label="Example SpecQuill output">
+          <div class="code-card-head">
+            <span class="mono">component-spec.md</span>
+            <span class="pill-ok">~215 tokens · 14.2:1 AAA</span>
+          </div>
+          <pre><code>&lt;component_spec tag="article" size="520x320px"&gt;
+## Visual Tokens
+- Palette: `#ffffff` (bg), `#0f172a` (text), `#2563eb` (accent)
+- Fonts: `Inter, system-ui, sans-serif`
+
+### React + Tailwind v4
+export function PricingCard() {
+  return (
+    &lt;article className="flex flex-col p-8 bg-white rounded-xl border border-slate-200 shadow-md"&gt;
+      &lt;h2 className="text-2xl font-bold text-slate-900"&gt;Pro Lifetime&lt;/h2&gt;
+      &lt;button className="mt-6 py-3 px-5 bg-blue-600 text-white rounded-lg font-semibold"&gt;
+        Get Lifetime Access
+      &lt;/button&gt;
+    &lt;/article&gt;
+  );
+}
+&lt;/component_spec&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Built for Real Frontend &amp; AI Coding Workflows</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Zero-Bloat Style Diffing</h3>
+            <p>Diffs every element against a clean tag baseline so browser defaults and redundant inherited CSS never pollute your exported code.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Tailwind v4 + React JSX</h3>
+            <p>Deterministic spacing, radius, color, and flex/grid compiler with automatic JSX attribute conversion (<code>className</code>, <code>viewBox</code>, <code>strokeWidth</code>).</p>
+          </article>
+          <article class="feature-card">
+            <h3>Coding-Agent Prompt Packager</h3>
+            <p>Exports concise, token-budgeted <code>&lt;component_spec&gt;</code> prompts plus <code>.cursor/rules/*.mdc</code> and <code>AGENTS.md</code> guidelines for consistent UI generation.</p>
+          </article>
+          <article class="feature-card">
+            <h3>OKLCH &amp; WCAG 2.1 Contrast Audit</h3>
+            <p>Scan any page into deduplicated semantic palettes, OKLCH values, Tailwind v4 <code>@theme</code>, W3C DTCG JSON, Figma Variables JSON, and AA/AAA contrast checks.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Redline Ruler &amp; Keyboard DOM Nav</h3>
+            <p>Hold <kbd>Alt</kbd> for live pixel distance redlines and walk parent, child, and sibling nodes with arrow keys inside the Chrome Side Panel.</p>
+          </article>
+          <article class="feature-card">
+            <h3>100% Local &amp; Least-Privilege</h3>
+            <p>No cloud scraping, no analytics, no <code>&lt;all_urls&gt;</code> background snooping. Everything runs locally on your machine only when you activate it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="container">
+        <h2>Simple Pricing — Pay Once, Own Forever</h2>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="badge-tier">Free Forever</p>
+            <h3>SpecQuill Free</h3>
+            <p class="price">$0 <span>forever</span></p>
+            <ul>
+              <li>Hover inspector, box model &amp; Alt distance redlines</li>
+              <li>Live WCAG AA/AAA contrast badge</li>
+              <li>Unlimited Clean HTML + Zero-Bloat CSS copy</li>
+              <li>Full-page color, font &amp; SVG audit preview</li>
+              <li>Unlimited CSS <code>:root</code> custom properties export</li>
+              <li>5 free Pro exports every day</li>
+            </ul>
+            <a id="install" class="btn secondary full" href="#faq">Chrome Web Store (Launching Soon)</a>
+          </article>
+
+          <article class="price-card featured">
+            <p class="badge-launch">Early Bird Launch Offer</p>
+            <h3>SpecQuill Pro</h3>
+            <p class="price">$19 <span>one-time (normally $29)</span></p>
+            <ul>
+              <li>Everything in Free, with zero daily limits</li>
+              <li>Unlimited React JSX + Tailwind CSS v4 subtree exports</li>
+              <li>Unlimited structured AI coding prompt specs</li>
+              <li>Tailwind v4 <code>@theme</code>, W3C DTCG JSON &amp; Figma JSON</li>
+              <li>Auto-generated <code>.cursor/rules</code> &amp; <code>AGENTS.md</code></li>
+              <li>Unlimited typed React TSX SVG icon exports (up to 3 devices)</li>
+            </ul>
+            <a class="btn primary full" href="https://www.creem.io/product/prod_4mf62USuYfD1W1ui9NnUD1" target="_blank" rel="noopener noreferrer">
+              Buy Lifetime Pro License ($19)
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <article class="faq-item">
+            <h3>Does SpecQuill send webpage data to a server?</h3>
+            <p>Never. All DOM inspection, CSS diffing, utility compilation, and token extraction run 100% locally in your browser. The only optional network request is verifying your Pro license key if you activate Pro.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Is this a recurring subscription? What about refunds?</h3>
+            <p>No subscriptions. SpecQuill Pro is a single one-time payment with 7-day offline grace caching and a <a href="../terms.html">14-day full refund policy</a>.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Why doesn't SpecQuill ask for all-website background permissions?</h3>
+            <p>SpecQuill activates only on the active tab when you click the toolbar icon, press <kbd>Alt+Shift+S</kbd>, or explicitly grant per-site access from the side panel.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps · SpecQuill. Independent developer tool — not affiliated with Tailwind Labs, Anthropic, Cursor, Vercel, Figma, or Google.</p>
+      <p><a href="../">All Apps</a> · <a href="../privacy.html">Privacy Policy</a> · <a href="../terms.html">Terms &amp; Refunds</a> · <a href="https://github.com/orziz/orzi-apps-site/issues" target="_blank" rel="noopener noreferrer">Support</a></p>
+    </div>
+  </footer>
+</body>
+</html>

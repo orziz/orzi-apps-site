@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Privacy Policy | Orzi Apps &amp; SpecQuill</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="./" class="brand">
+        <span class="brand-mark" aria-hidden="true">OA</span>
+        <span>Orzi Apps</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="./">Home</a></li>
+          <li><a href="specquill/">SpecQuill</a></li>
+          <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+          <li><a href="terms.html">Terms &amp; Refunds</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container prose">
+    <h1>Privacy Policy for Orzi Apps &amp; SpecQuill</h1>
+    <p>Last updated: November 24, 2026</p>
+
+    <h2>Summary</h2>
+    <p>Orzi Apps products (including the SpecQuill Chrome extension) process webpage layout, styling, and user actions strictly inside your local browser. We do not track your browsing history, run analytics, collect webpage content, or sell any data to third parties.</p>
+
+    <h2>What Data Is Accessed Locally</h2>
+    <ul>
+      <li><strong>Active Webpage DOM &amp; Styles:</strong> When you explicitly activate the element picker or click Scan Page in SpecQuill, the extension reads computed CSS styles, HTML structure, and inline SVGs of the active tab in memory solely to generate the CSS, utility class, design token, or specification output displayed in your Side Panel. This data never leaves your device.</li>
+      <li><strong>Local Preferences &amp; Daily Quota:</strong> Your daily free Pro export counter and an anonymous randomly generated device identifier are stored locally in <code>chrome.storage.local</code>.</li>
+      <li><strong>Optional Pro License Key:</strong> If you purchase a Pro license and enter a license key, the key, activation instance ID, and activation timestamp are stored locally in <code>chrome.storage.local</code>.</li>
+    </ul>
+
+    <h2>Third-Party Services</h2>
+    <p>Orzi Apps extensions use <strong>zero</strong> analytics, telemetry, crash-reporting, or advertising SDKs. If—and only if—you choose to activate or verify a paid Pro license key, the extension sends your license key, product ID, and an anonymous device identifier to our license verification endpoint backed by <a href="https://www.creem.io/privacy" target="_blank" rel="noopener noreferrer">Creem</a> (Merchant of Record) solely to confirm license validity.</p>
+
+    <h2>Data Sharing &amp; Selling</h2>
+    <p>We do not sell, rent, or transfer user data to third parties, and we do not use any data for advertising, profiling, or creditworthiness purposes.</p>
+
+    <h2>Data Retention and Deletion</h2>
+    <p>All locally stored extension state (daily counter and optional Pro license record) stays on your device until you click <strong>Deactivate Device</strong> inside the Pro tab or uninstall the extension from Chrome.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>If our data practices change in a future release, we will update this page and the "Last updated" date above before publishing the extension update.</p>
+
+    <h2>Contact</h2>
+    <p>For privacy or support inquiries, please open a ticket at <a href="https://github.com/orziz/orzi-apps-site/issues" target="_blank" rel="noopener noreferrer">github.com/orziz/orzi-apps-site/issues</a>.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps</p>
+      <p><a href="./">Home</a> · <a href="specquill/">SpecQuill</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms &amp; Refunds</a></p>
+    </div>
+  </footer>
+</body>
+</html>
