@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Free Local AI Prompt, JSON &amp; Log PII Scrubber (Reversible) | Orzi Apps</title>
+  <meta name="description" content="Strip API keys, JWTs, emails, credit cards, IPs, and revenue numbers from logs, JSON, .env files, and AI prompts 100% locally before pasting into ChatGPT or Claude — then restore original values in 1 click.">
+  <link rel="canonical" href="https://apps.orzi.me/tools/prompt-sanitizer/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Local AI Prompt &amp; Log PII Scrubber (Reversible)">
+  <meta property="og:description" content="Mask API keys, emails, IPs, and secrets in logs or JSON 100% locally before sending to ChatGPT or Claude — with 1-click local re-hydration.">
+  <meta property="og:url" content="https://apps.orzi.me/tools/prompt-sanitizer/">
+  <meta property="og:image" content="https://apps.orzi.me/democloak/img/screenshot-1-demo-mode.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Local AI Prompt, JSON &amp; Log PII Scrubber">
+  <meta name="twitter:description" content="100% client-side secret &amp; PII redaction for ChatGPT/Claude prompts, stack traces, and JSON payloads with reversible token restore.">
+  <meta name="twitter:image" content="https://apps.orzi.me/democloak/img/screenshot-1-demo-mode.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    :root {
+      --scrub-brand-light: #047857;
+      --scrub-brand-dark: #34d399;
+      --scrub-brand: var(--scrub-brand-light);
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --scrub-brand: var(--scrub-brand-dark); }
+    }
+    @supports (color: light-dark(white, black)) {
+      :root { --scrub-brand: light-dark(var(--scrub-brand-light), var(--scrub-brand-dark)); }
+    }
+    .scrub-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      accent-color: var(--scrub-brand);
+    }
+    .scrub-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .scrub-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    @supports not (accent-color: var(--scrub-brand)) {
+      .scrub-bar input[type="checkbox"],
+      .scrub-bar input[type="radio"] {
+        position: absolute;
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .scrub-chip {
+        position: relative;
+        padding-inline-start: 28px;
+      }
+      .scrub-chip input + span::before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 13px;
+        height: 13px;
+        border: 2px solid #94a3b8;
+        border-radius: 3px;
+        background: transparent;
+      }
+      .scrub-chip input:checked + span::before {
+        background: var(--scrub-brand);
+        border-color: var(--scrub-brand);
+      }
+      .scrub-chip input:focus-visible + span::before {
+        outline: 2px solid var(--scrub-brand);
+        outline-offset: 2px;
+      }
+    }
+    .scrub-grid {
+      margin-block-start: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .scrub-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .scrub-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .scrub-textarea {
+      width: 100%;
+      min-height: 250px;
+      resize: vertical;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      padding: 12px;
+      font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .custom-row {
+      margin-block-start: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .custom-row input[type="text"] {
+      flex: 1 1 260px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+    .map-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin-block-start: 8px;
+    }
+    .map-table th,
+    .map-table td {
+      text-align: left;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rehydrate-box {
+      margin-block-start: 18px;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .promo-strip {
+      margin-block-start: 28px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Local AI Prompt, JSON & Log PII Scrubber",
+    "url": "https://apps.orzi.me/tools/prompt-sanitizer/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Orzi Apps", "url": "https://apps.orzi.me/" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link visually-hidden">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../../" class="brand">
+        <span class="brand-mark" aria-hidden="true">OA</span>
+        <span>Orzi Apps</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../../democloak/">DemoCloak</a></li>
+          <li><a href="../../specquill/">SpecQuill</a></li>
+          <li><a href="../screenshot-redact/">Screenshot Redactor</a></li>
+          <li><a href="./" aria-current="page">Prompt Scrubber</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container tool-main">
+    <section class="tool-hero">
+      <p class="eyebrow">100% Local in Your Browser · Zero Server Upload · Reversible Tokens</p>
+      <h1>AI Prompt, JSON &amp; Log PII Scrubber</h1>
+      <p class="lead">Safely sanitize API keys, JWTs, emails, customer cards, phone numbers, revenue figures, and IP addresses from logs or JSON before pasting into ChatGPT, Claude, or GitHub Issues—then restore the AI's reply back to your real values in 1 click.</p>
+    </section>
+
+    <section class="scrub-bar" aria-label="Detection categories and replacement style">
+      <div class="scrub-checks" id="cat-checks">
+        <label class="scrub-chip"><input type="checkbox" data-cat="secrets" checked><span>API Keys &amp; JWT</span></label>
+        <label class="scrub-chip"><input type="checkbox" data-cat="emails" checked><span>Emails</span></label>
+        <label class="scrub-chip"><input type="checkbox" data-cat="money" checked><span>Revenue / $</span></label>
+        <label class="scrub-chip"><input type="checkbox" data-cat="cards" checked><span>Credit Cards</span></label>
+        <label class="scrub-chip"><input type="checkbox" data-cat="phones" checked><span>Phones</span></label>
+        <label class="scrub-chip"><input type="checkbox" data-cat="ips" checked><span>IPv4</span></label>
+      </div>
+
+      <div class="scrub-checks" role="radiogroup" aria-label="Replacement mode">
+        <label class="scrub-chip"><input type="radio" name="scrub-mode" value="tokens" checked><span>Reversible Tokens (<code>[EMAIL_1]</code>)</span></label>
+        <label class="scrub-chip"><input type="radio" name="scrub-mode" value="demo"><span>Realistic Fake Data</span></label>
+      </div>
+    </section>
+
+    <div class="custom-row">
+      <label for="custom-terms" class="field-label" style="margin:0;">Custom words or <code>/regex/</code>:</label>
+      <input id="custom-terms" type="text" placeholder="e.g. Acme Internal, Project Titan, /CUST-\d+/">
+      <button id="btn-sample" type="button" class="btn small secondary">Load Sample Log</button>
+      <button id="btn-clear" type="button" class="btn small secondary">Clear</button>
+    </div>
+
+    <section class="scrub-grid" aria-label="Sanitizer input and output">
+      <div class="scrub-panel">
+        <div class="scrub-panel-head">
+          <strong>1. Raw Prompt, Log, .env, or JSON</strong>
+          <span id="match-badge" class="pill-ok">0 secrets detected</span>
+        </div>
+        <textarea id="raw-input" class="scrub-textarea" spellcheck="false" placeholder="Paste error logs, JSON payloads, .env config, or customer emails here..."></textarea>
+      </div>
+
+      <div class="scrub-panel">
+        <div class="scrub-panel-head">
+          <strong>2. Safe Sanitized Output (Ready for AI / Sharing)</strong>
+          <button id="btn-copy-safe" type="button" class="btn small primary">Copy Safe Text</button>
+        </div>
+        <textarea id="safe-output" class="scrub-textarea" readonly spellcheck="false" placeholder="Sanitized text appears here instantly..."></textarea>
+      </div>
+    </section>
+
+    <section class="rehydrate-box" aria-label="Re-hydrate AI reply locally">
+      <div class="scrub-panel-head" style="margin-block-end: 10px;">
+        <strong>3. Optional: Restore Original Values in AI's Reply (Local Re-hydration)</strong>
+        <button id="btn-copy-restored" type="button" class="btn small secondary">Copy Restored Text</button>
+      </div>
+      <div class="scrub-grid" style="margin-block-start: 0;">
+        <textarea id="ai-reply-input" class="scrub-textarea" style="min-height: 150px;" spellcheck="false" placeholder="Paste ChatGPT / Claude's response containing [EMAIL_1] or fake values here..."></textarea>
+        <textarea id="restored-output" class="scrub-textarea" style="min-height: 150px;" readonly spellcheck="false" placeholder="Restored output with your real local values appears here..."></textarea>
+      </div>
+
+      <details style="margin-block-start: 14px;">
+        <summary style="cursor:pointer;font-weight:600;">View Local Mapping Table (<span id="map-count">0</span> unique items)</summary>
+        <table class="map-table">
+          <thead>
+            <tr><th>Category</th><th>Safe Replacement</th><th>Original (Local Memory Only)</th></tr>
+          </thead>
+          <tbody id="map-tbody"></tbody>
+        </table>
+      </details>
+    </section>
+
+    <aside class="promo-strip">
+      <div style="max-inline-size:64ch;">
+        <p class="eyebrow" style="margin:0 0 4px;">Sharing Live Dashboards on Zoom, Google Meet, or Loom?</p>
+        <h2 style="margin:0 0 6px;font-size:1.25rem;">DemoCloak Brings This Same PII &amp; Demo-Data Engine Directly Into Your Browser</h2>
+        <p style="margin:0;color:var(--muted);">Auto-blur or swap real Stripe revenue, customer emails, and API keys on any live webpage in 1 click—plus per-site auto-apply rules and Alt+Shift+B Panic Veil. Free manual blur forever, $19 one-time Pro.</p>
+      </div>
+      <div class="cta-row" style="margin:0;">
+        <a class="btn primary" href="../../democloak/">Get DemoCloak →</a>
+        <a class="btn secondary" href="../screenshot-redact/">Screenshot Redactor</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps. 100% local in-browser privacy tools — zero uploads, zero tracking.</p>
+      <p><a href="../../">All Apps</a> · <a href="../../democloak/">DemoCloak</a> · <a href="../../specquill/">SpecQuill</a> · <a href="../../privacy.html">Privacy</a></p>
+    </div>
+  </footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
