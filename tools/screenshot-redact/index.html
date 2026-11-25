@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Free Local Screenshot Redactor &amp; Blur Tool (EXIF Stripper) | Orzi Apps</title>
+  <meta name="description" content="Blur, pixelate, or blackout sensitive text in any screenshot locally in your browser. Zero upload, strips EXIF metadata automatically, supports Ctrl+V paste and PNG download.">
+  <link rel="canonical" href="https://apps.orzi.me/tools/screenshot-redact/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free Local Screenshot Blur &amp; Redaction Tool (Zero Upload)">
+  <meta property="og:description" content="Paste or drop any screenshot to blur, pixelate, or redact sensitive emails, keys, and numbers 100% locally in your browser. Automatically strips EXIF metadata.">
+  <meta property="og:url" content="https://apps.orzi.me/tools/screenshot-redact/">
+  <meta property="og:image" content="https://apps.orzi.me/democloak/img/screenshot-1-demo-mode.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Private Screenshot Redactor &amp; Blur Tool">
+  <meta name="twitter:description" content="100% client-side screenshot blur, pixelate, blackout &amp; EXIF metadata stripper. No servers, no watermarks.">
+  <meta name="twitter:image" content="https://apps.orzi.me/democloak/img/screenshot-1-demo-mode.png">
+  <link rel="stylesheet" href="../../styles.css">
+  <style>
+    :root {
+      --redact-brand-light: #047857;
+      --redact-brand-dark: #34d399;
+      --redact-brand: var(--redact-brand-light);
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --redact-brand: var(--redact-brand-dark); }
+    }
+    @supports (color: light-dark(white, black)) {
+      :root { --redact-brand: light-dark(var(--redact-brand-light), var(--redact-brand-dark)); }
+    }
+    .redact-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      accent-color: var(--redact-brand);
+    }
+    .redact-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .mode-radio {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .range-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    @supports not (accent-color: var(--redact-brand)) {
+      .redact-controls input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+      }
+      .redact-controls input[type="range"]::-webkit-slider-runnable-track {
+        height: 8px;
+        border-radius: 4px;
+        background: linear-gradient(to right, var(--redact-brand) var(--progress, 50%), #64748b var(--progress, 50%));
+      }
+      .redact-controls input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        margin-top: -4px;
+        border-radius: 50%;
+        background: var(--redact-brand);
+        cursor: pointer;
+      }
+      .redact-controls input[type="range"]::-moz-range-track {
+        height: 8px;
+        border-radius: 4px;
+        background: #64748b;
+      }
+      .redact-controls input[type="range"]::-moz-range-progress {
+        height: 8px;
+        border-radius: 4px;
+        background: var(--redact-brand);
+      }
+      .redact-controls input[type="range"]::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--redact-brand);
+        cursor: pointer;
+      }
+    }
+    .drop-stage {
+      margin-block-start: 16px;
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      position: relative;
+      overflow: auto;
+    }
+    .drop-stage.dragover {
+      border-color: var(--redact-brand);
+    }
+    .empty-prompt {
+      text-align: center;
+      max-inline-size: 48ch;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .canvas-shell {
+      display: none;
+      max-width: 100%;
+    }
+    .canvas-shell.visible {
+      display: block;
+    }
+    #redact-canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      cursor: crosshair;
+      touch-action: none;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+    }
+    .stage-status {
+      margin-block-start: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .promo-strip {
+      margin-block-start: 28px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Private Local Screenshot Redactor & Blur Tool",
+    "url": "https://apps.orzi.me/tools/screenshot-redact/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Orzi Apps", "url": "https://apps.orzi.me/" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link visually-hidden">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../../" class="brand">
+        <span class="brand-mark" aria-hidden="true">OA</span>
+        <span>Orzi Apps</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../../democloak/">DemoCloak</a></li>
+          <li><a href="../../specquill/">SpecQuill</a></li>
+          <li><a href="../css-to-tailwind/">CSS → Tailwind</a></li>
+          <li><a href="./" aria-current="page">Screenshot Redactor</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container tool-main">
+    <section class="tool-hero">
+      <p class="eyebrow">100% Client-Side · Zero Server Upload · Auto EXIF Stripper</p>
+      <h1>Private Screenshot Blur, Pixelate &amp; Redaction Tool</h1>
+      <p class="lead">Paste (<kbd>Ctrl+V</kbd> / <kbd>⌘V</kbd>) or drop any PNG, JPG, or WebP screenshot, drag boxes over emails, API keys, or revenue figures, and download a clean PNG with all EXIF metadata stripped automatically.</p>
+    </section>
+
+    <section aria-label="Screenshot redaction toolbar" class="redact-controls">
+      <div class="redact-group" role="radiogroup" aria-label="Redaction style">
+        <label class="mode-radio"><input type="radio" name="redact-mode" value="blur" checked><span>Blur</span></label>
+        <label class="mode-radio"><input type="radio" name="redact-mode" value="pixelate"><span>Pixelate</span></label>
+        <label class="mode-radio"><input type="radio" name="redact-mode" value="solid"><span>Solid Black</span></label>
+        <label class="range-wrap" for="strength-range">
+          Strength
+          <input id="strength-range" type="range" min="4" max="32" value="14">
+          <span id="strength-val" class="mono">14</span>
+        </label>
+      </div>
+
+      <div class="redact-group">
+        <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp" class="visually-hidden">
+        <button id="btn-choose" type="button" class="btn small secondary">Open Image</button>
+        <button id="btn-sample" type="button" class="btn small secondary">Load Sample</button>
+        <button id="btn-undo" type="button" class="btn small secondary" disabled>Undo</button>
+        <button id="btn-clear" type="button" class="btn small secondary" disabled>Clear Boxes</button>
+        <button id="btn-copy" type="button" class="btn small secondary" disabled>Copy PNG</button>
+        <button id="btn-download" type="button" class="btn small primary" disabled>Download Clean PNG</button>
+      </div>
+    </section>
+
+    <section id="drop-stage" class="drop-stage" aria-label="Screenshot canvas workspace">
+      <div id="empty-prompt" class="empty-prompt">
+        <h2 style="margin:0;">Drop a screenshot here or press <kbd>⌘V</kbd> / <kbd>Ctrl+V</kbd></h2>
+        <p style="margin:0;color:var(--muted);">Nothing ever leaves your browser. Re-encoding via HTML Canvas strips GPS, camera, and screenshot EXIF metadata automatically.</p>
+        <div class="cta-row" style="justify-content:center;margin:0;">
+          <button id="btn-choose-empty" type="button" class="btn primary">Choose Screenshot</button>
+          <button id="btn-sample-empty" type="button" class="btn secondary">Try Sample Dashboard</button>
+        </div>
+      </div>
+
+      <div id="canvas-shell" class="canvas-shell">
+        <canvas id="redact-canvas" aria-label="Interactive screenshot redaction canvas"></canvas>
+      </div>
+    </section>
+
+    <div class="stage-status">
+      <span id="status-text">Ready — paste, drop, or load the sample dashboard to draw redaction boxes.</span>
+      <span id="box-counter" class="mono">0 redactions</span>
+    </div>
+
+    <aside class="promo-strip">
+      <div style="max-inline-size:64ch;">
+        <p class="eyebrow" style="margin:0 0 4px;">Need Live Protection While Sharing Your Screen on Zoom, Meet, or Loom?</p>
+        <h2 style="margin:0 0 6px;font-size:1.25rem;">Try DemoCloak — Auto-Blur PII &amp; Realistic Demo Data Extension</h2>
+        <p style="margin:0;color:var(--muted);">Automatically hides real emails, Stripe/AWS/OpenAI API keys, and revenue figures on live webpages—or swaps them into realistic fake Demo Data in 1 click. Free manual blur forever, $19 one-time Pro.</p>
+      </div>
+      <div class="cta-row" style="margin:0;">
+        <a class="btn primary" href="../../democloak/">Explore DemoCloak →</a>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Orzi Apps. 100% local in-browser privacy tools — zero uploads, zero tracking.</p>
+      <p><a href="../../">All Apps</a> · <a href="../../democloak/">DemoCloak</a> · <a href="../../specquill/">SpecQuill</a> · <a href="../../privacy.html">Privacy</a></p>
+    </div>
+  </footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
