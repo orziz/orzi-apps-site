@@ -12,8 +12,8 @@ Independent software studio building fast, local-first browser extensions and ze
 ## SpecQuill — Chrome & Edge Side Panel UI Inspector & Design Token Extractor
 
 - Product page: **[https://apps.orzi.me/specquill/](https://apps.orzi.me/specquill/)**
-- **Microsoft Edge Add-ons (Live)**: **[Install SpecQuill](https://microsoftedge.microsoft.com/addons/detail/hldcmmkeggnbhejhjbjbapmpephjibdo)**
-- Chrome Web Store: Pending review (v1.1.0 ZIP available on the product page for Chrome/Brave)
+- **Chrome Web Store (Live)**: **[Add SpecQuill to Chrome](https://chromewebstore.google.com/detail/dcdeigiddhadgjhecincfjlnffnebhdj)**
+- **Microsoft Edge Add-ons (Live)**: **[Add SpecQuill to Edge](https://microsoftedge.microsoft.com/addons/detail/hldcmmkeggnbhejhjbjbapmpephjibdo)**
 - Supports modern CSS Color 4 (`oklch()`, `oklab()`, `hsl()`, `display-p3`), gradients, `backdrop-blur`, full Tailwind CSS v4 palette snapping, and accurate SVG sizing.
 - Free core forever + 3 free Pro exports/day, or optional one-time Early Bird Pro license (`$12`, no subscription).
 
