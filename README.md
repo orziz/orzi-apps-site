@@ -12,14 +12,15 @@ Independent software studio building fast, local-first browser extensions and ze
 ## SpecQuill — Chrome & Edge Side Panel UI Inspector & Design Token Extractor
 
 - Product page: **[https://apps.orzi.me/specquill/](https://apps.orzi.me/specquill/)**
-- **Microsoft Edge Add-ons (Live)**: **[Install SpecQuill v1.0.1](https://microsoftedge.microsoft.com/addons/detail/hldcmmkeggnbhejhjbjbapmpephjibdo)**
-- Chrome Web Store: Pending review (v1.0.1 ZIP available on the product page for Chrome/Brave)
+- **Microsoft Edge Add-ons (Live)**: **[Install SpecQuill](https://microsoftedge.microsoft.com/addons/detail/hldcmmkeggnbhejhjbjbapmpephjibdo)**
+- Chrome Web Store: Pending review (v1.1.0 ZIP available on the product page for Chrome/Brave)
+- Supports modern CSS Color 4 (`oklch()`, `oklab()`, `hsl()`, `display-p3`), gradients, `backdrop-blur`, full Tailwind CSS v4 palette snapping, and accurate SVG sizing.
+- Free core forever + 3 free Pro exports/day, or optional one-time Early Bird Pro license (`$12`, no subscription).
 
 - Live hover inspector with box model, `Alt`-key spacing redlines, keyboard DOM traversal, and instant WCAG AA/AAA contrast badge.
 - Zero-bloat HTML/CSS diffing, React JSX + Tailwind CSS v4 component compilation, and token-budgeted AI coding prompts (`.cursor/rules`, `AGENTS.md`, `<component_spec>`).
 - Full-page OKLCH color palette, font, and typed React TSX SVG extraction.
 - 100% local processing with least-privilege permissions (no `<all_urls>` background access).
-- Free core forever + 5 free Pro exports/day, or optional one-time Early Bird Pro license (`$12`, no subscription).
 
 ## Support & Bug Reports
 
