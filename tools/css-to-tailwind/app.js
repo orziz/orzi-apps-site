@@ -77,8 +77,9 @@ function update() {
   // Apply cleaned visual styles safely to the live preview box
   livePreview.removeAttribute('style');
   const safePreviewProps = [
-    'display', 'flex-direction', 'align-items', 'justify-content', 'gap',
-    'padding', 'margin', 'background-color', 'color', 'border', 'border-radius',
+    'display', 'flex-direction', 'align-items', 'justify-content', 'gap', 'row-gap', 'column-gap',
+    'padding', 'margin', 'background-color', 'background-image', 'backdrop-filter', 'color',
+    'border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-radius',
     'box-shadow', 'font-size', 'font-weight', 'font-style', 'text-transform', 'opacity', 'cursor',
   ];
   for (const prop of safePreviewProps) {
